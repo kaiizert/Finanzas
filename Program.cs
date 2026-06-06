@@ -62,11 +62,9 @@ partial class  Program
                 string? inputClave = Console.ReadLine();
                 if (inputClave == clave)
                 {
-                    Console.WriteLine("Iniciando sesion...");
-                    finanza();
-                    
-        
-                }
+                 
+                   sign();
+                 }
                 else
                 {
                     while (inputClave != clave)
@@ -75,9 +73,8 @@ partial class  Program
                         inputClave = Console.ReadLine();
                         if (inputClave == clave)
                         {
-                            Console.WriteLine("Iniciando sesion...");
-                            finanza();
-                            break;
+                          
+                           sign();
                         }
                     }
             
@@ -102,11 +99,11 @@ partial class  Program
                      string? ingreso = Console.ReadLine();
                      if (decimal.TryParse(ingreso, out decimal ingresoDecimal))
                     {
-                        balance += ingresoDecimal;
+                        
                         using (StreamWriter sw = File.AppendText(Finanzas ))
                         {
-                        
-                            sw.WriteLine("Balance actual: " + balance);
+                            balance += ingresoDecimal;
+                            sw.WriteLine( balance);
                         }
                         using (StreamWriter sw = File.AppendText(Historial))
                         {
@@ -125,11 +122,11 @@ partial class  Program
                      string? gasto = Console.ReadLine();
                     if (decimal.TryParse(gasto, out decimal gastoDecimal))
                     {
-                         balance -= gastoDecimal;
+                         
                         using (StreamWriter sw = File.AppendText(Finanzas))
                         {
-                        
-                          sw.WriteLine("Balance actual: " + balance);
+                           balance -= gastoDecimal;
+                          sw.WriteLine(balance);
                         }
                         using (StreamWriter sw = File.AppendText(Historial))
                         {
@@ -146,7 +143,7 @@ partial class  Program
                     using (StreamReader srw = File.OpenText(Finanzas))
                         {
                             string b = File.ReadLines(Finanzas).Last();
-                            Console.WriteLine(b);
+                            Console.WriteLine( "Balance actual: " + b);
                                 
                         }
                     break;
@@ -172,6 +169,51 @@ partial class  Program
         }
 
             
+        }
+        void sign()
+        {
+            int vueltas = 0;
+            while (vueltas < 3)
+            {
+                Console.WriteLine("\r iniciando sesion...");
+                Thread.Sleep(1000);
+                Console.WriteLine("\r iniciando sesion..");
+                Thread.Sleep(1000);
+                Console.WriteLine("\r iniciando sesion.");
+                Thread.Sleep(1000);
+                Console.WriteLine("\r iniciando sesion..");
+                vueltas++;
+
+
+            }
+
+        if (vueltas == 3)
+{
+    
+    if (File.ReadAllText(Finanzas).Trim() != "")
+    {
+    
+        string ultimaLinea = File.ReadLines(Finanzas).Last().Trim();
+
+        if (decimal.TryParse(ultimaLinea, out balance))
+        {
+            Console.WriteLine("Balance cargado con éxito: " + balance);
+        }
+        else
+        {
+            Console.WriteLine("null exeption, no se pudo cargar el balance, iniciando con balance en 0.");
+            balance = 0;
+        }
+
+        finanza();
+    }
+    else
+    {
+      
+        balance = 0;
+        finanza();
+    }
+}
         }
         
     }
