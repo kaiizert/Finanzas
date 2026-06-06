@@ -1,0 +1,14 @@
+C:\Users\Santiago\Desktop\Codes\C#\Finance\bin\Debug\net9.0\Finance.exe
+C:\Users\Santiago\Desktop\Codes\C#\Finance\bin\Debug\net9.0\Finance.deps.json
+C:\Users\Santiago\Desktop\Codes\C#\Finance\bin\Debug\net9.0\Finance.runtimeconfig.json
+C:\Users\Santiago\Desktop\Codes\C#\Finance\bin\Debug\net9.0\Finance.dll
+C:\Users\Santiago\Desktop\Codes\C#\Finance\bin\Debug\net9.0\Finance.pdb
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.AssemblyInfoInputs.cache
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.AssemblyInfo.cs
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.csproj.CoreCompileInputs.cache
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.dll
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\refint\Finance.dll
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.pdb
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.genruntimeconfig.cache
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\ref\Finance.dll
