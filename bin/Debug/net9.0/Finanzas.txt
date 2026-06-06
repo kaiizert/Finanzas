@@ -1,0 +1,4 @@
+Balance actual: 45
+Balance actual: 40
+Balance actual: 56
+Balance actual: -43
