@@ -12,3 +12,4 @@ C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\refint\Finance.dll
 C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.pdb
 C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.genruntimeconfig.cache
 C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\ref\Finance.dll
+C:\Users\Santiago\Desktop\Codes\C#\Finance\obj\Debug\net9.0\Finance.sourcelink.json

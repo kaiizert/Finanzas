@@ -1,19 +1,23 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 
 
 
 partial class  Program
 
 {
+    static decimal balance = 0;
+    static string Credentials = "Credentials.txt";
+    static string Historial = "Historial.txt";
+    static string Finanzas = "Finanzas.txt";
     
   static void Main()
     {
         
-        string  Credentials = "Credentials.txt";
-        string Historial = "Historial.txt";
-        string Finanzas = "Finanzas.txt";
-        decimal balance = 0;
+       
+        
+        
         if (!File.Exists(Historial))
         {
             File.Create(Historial).Close();
@@ -30,15 +34,18 @@ partial class  Program
         {
             Console.WriteLine("Bienvenido, por favor ingrese su nombre de usuario:");
             string? Nombre = Console.ReadLine();
-            Console.WriteLine("Un gusto conocerte!" + Nombre + ", por favor ingresa tu contraseña:");
-            string? clave = Console.ReadLine();
+            Console.WriteLine("Un gusto conocerte! " + Nombre + ", por favor ingresa tu contraseña:");
+            string clave = Console.ReadLine() ?? string.Empty;
+            string claveCifrada = EncryptPassword(clave);
             Console.WriteLine("Gracias por registrarte, " + Nombre + "!");
             using (StreamWriter sw = File.CreateText(Credentials))
             {
                 sw.WriteLine(Nombre);
-                sw.WriteLine(clave);
+                sw.WriteLine(claveCifrada);
             }
-            finanza();
+
+        
+            sign();
 
 
         }
@@ -57,21 +64,21 @@ partial class  Program
             using (StreamReader sr = File.OpenText(Credentials))
             {
                 string? Nombre = sr.ReadLine();
-                string? clave = sr.ReadLine();
+                string? claveCifrada = sr.ReadLine();
                 Console.WriteLine("Bienvenido,"+  Nombre  + "Porfavor ingresa tu contraseña:" );
                 string? inputClave = Console.ReadLine();
-                if (inputClave == clave)
+                if (EncryptPassword(inputClave ?? string.Empty) == claveCifrada)
                 {
                  
                    sign();
                  }
                 else
                 {
-                    while (inputClave != clave)
+                    while (EncryptPassword(inputClave ?? string.Empty) != claveCifrada)
                     {
                         Console.WriteLine("Contraseña incorrecta, por favor intente de nuevo.");
                         inputClave = Console.ReadLine();
-                        if (inputClave == clave)
+                        if (EncryptPassword(inputClave ?? string.Empty) == claveCifrada)
                         {
                           
                            sign();
@@ -91,6 +98,7 @@ partial class  Program
         {
             Console.WriteLine("¿Qué operación deseas realizar? (ingresa el número correspondiente) \n1. registrar ingreso \n2. registrar Gasto \n3. mostrar balance \n4. ver historial  \n5. salir");
             string? opcion = Console.ReadLine();
+           
             switch (opcion)
             {
                 
@@ -140,12 +148,21 @@ partial class  Program
                     }
                     break;
                 case "3":
-                    using (StreamReader srw = File.OpenText(Finanzas))
+                    if (File.Exists(Finanzas) && new FileInfo(Finanzas).Length > 0)
+
                         {
                             string b = File.ReadLines(Finanzas).Last();
                             Console.WriteLine( "Balance actual: " + b);
-                                
+                            
                         }
+                        else
+                        {
+                            Console.WriteLine("Balance actual: 0");
+                        }
+               
+                            
+                                
+                        
                     break;
                 case "4":
                     // Ver historial
@@ -188,16 +205,17 @@ partial class  Program
             }
 
         if (vueltas == 3)
-{
-    
-    if (File.ReadAllText(Finanzas).Trim() != "")
+         {
+             Console.WriteLine("Sesion iniciada con exito!");
+             Thread.Sleep(1000);
+        if (File.ReadAllText(Finanzas).Trim() != "")
     {
     
         string ultimaLinea = File.ReadLines(Finanzas).Last().Trim();
 
         if (decimal.TryParse(ultimaLinea, out balance))
         {
-            Console.WriteLine("Balance cargado con éxito: " + balance);
+            Console.WriteLine("Cargado con exito ");
         }
         else
         {
@@ -207,15 +225,32 @@ partial class  Program
 
         finanza();
     }
-    else
-    {
+        else
+        {
       
-        balance = 0;
-        finanza();
+         balance = 0;
+         finanza();
+        }  
     }
-}
+    
+
         }
         
+    }
+
+    static string EncryptPassword(string password)
+    {
+        if (string.IsNullOrEmpty(password))
+        {
+            return string.Empty;
+        }
+
+        using (var sha256 = SHA256.Create())
+        {
+            byte[] inputBytes = System.Text.Encoding.UTF8.GetBytes(password);
+            byte[] hashBytes = sha256.ComputeHash(inputBytes);
+            return Convert.ToBase64String(hashBytes);
+        }
     }
 
 }
